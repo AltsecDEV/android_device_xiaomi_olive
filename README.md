@@ -10,8 +10,9 @@ Shipped Android Version | 9.0
 Storage | 32/64 GB
 MicroSD | Up to 512 GB
 Battery | 5000 mAh (non-removable)
-Display | 720 x 1520 pixels, 5.5"
-Rear Camera  | 12.0 MP Dual-Flash
+Display | 720 x 1520 pixels, 6.22"
+Rear Camera  | 12.0 MP LED-Flash
+Rear Depth Sensor  | 2.0 MP
 Front Camera | 8.0 MP
 Release Date | Oct 2019
 
