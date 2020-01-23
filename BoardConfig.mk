@@ -110,7 +110,8 @@ TW_SCREEN_BLANK_ON_BOOT := false
 TW_EXTRA_LANGUAGES := true
 TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_TWRPAPP := true
-TW_NO_SCREEN_TIMEOUT  := true
+#Screen timeaut is true
+TW_NO_SCREEN_TIMEOUT  := false
 TW_HAS_USB_STORAGE := true
 TW_NO_USB_STORAGE := false
 TWRP_INCLUDE_LOGCAT := true
@@ -120,6 +121,7 @@ TW_H_OFFSET := -57
 TW_NO_EXFAT := false
 TW_NO_EXFAT_FUSE := false
 TW_INCLUDE_NTFS_3G := true
+#TW_OEM_BUILD := true
 
 # System-as-root
 
@@ -136,4 +138,9 @@ BOARD_NEEDS_VENDORIMAGE_SYMLINK := false
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 
+#Init
+
+#TARGET_INIT_VENDOR_LIB := libinit_olive
+#TARGET_RECOVERY_DEVICE_MODULES := libinit_olive
+#TARGET_PLATFORM_DEVICE_BASE := /devices/soc/
 

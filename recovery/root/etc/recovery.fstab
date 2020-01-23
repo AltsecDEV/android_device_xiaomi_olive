@@ -5,7 +5,7 @@
 /cache            ext4     /dev/block/bootdevice/by-name/cache        flags=backup=1;wipeingui;wipeduringfactoryreset
 
 # System
-/system_root      ext4     /dev/block/bootdevice/by-name/system       flags=backup=1;wipeingui;display="System"
+/system_root      ext4     /dev/block/bootdevice/by-name/system       flags=display="System"
 /system_image     emmc     /dev/block/bootdevice/by-name/system       flags=backup=1;flashimg=1;display="System Image"
 
 # Boot-Aboot-Recovery
@@ -15,7 +15,7 @@
 /abootbak         emmc     /dev/block/bootdevice/by-name/abootbak     flags=display="Bootloader Backup";backup=1;flashimg=1
 
 # Vendor
-/vendor           ext4     /dev/block/bootdevice/by-name/vendor       flags=display="Vendor";backup=1;wipeingui
+/vendor           ext4     /dev/block/bootdevice/by-name/vendor       flags=display="Vendor"
 /vendor_image     emmc     /dev/block/bootdevice/by-name/vendor       flags=display="Vendor Image";flashimg=1;backup=1
 
 # Modem
@@ -62,4 +62,5 @@
 
 # Removable storage
 /usb-otg          auto     /dev/block/sda1         /dev/block/sda     flags=display="USB OTG";storage;removable;wipeingui
-/external_sd      auto     /dev/block/mmcblk1p1                       flags=display="External SD";storage;removable;wipeingui
+/storage          auto     /data/media/0                              flags-display="Internal Storage";userrmrf;backup=1;fsflags="bind";removable
+/sdcard1          auto     /dev/block/mmcblk1p1                       flags=fsflags=utf8;display="MicroSD";storage;wipeingui;removable
