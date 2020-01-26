@@ -108,9 +108,7 @@ TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_SCREEN_BLANK_ON_BOOT := false
 TW_EXTRA_LANGUAGES := true
-TW_NO_SCREEN_BLANK := true
 TW_EXCLUDE_TWRPAPP := true
-#Screen timeaut is true
 TW_NO_SCREEN_TIMEOUT  := false
 TW_HAS_USB_STORAGE := true
 TW_NO_USB_STORAGE := false
@@ -121,7 +119,7 @@ TW_H_OFFSET := -57
 TW_NO_EXFAT := false
 TW_NO_EXFAT_FUSE := false
 TW_INCLUDE_NTFS_3G := true
-#TW_OEM_BUILD := true
+
 
 # System-as-root
 
