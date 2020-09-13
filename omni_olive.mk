@@ -14,38 +14,33 @@
 # limitations under the License.
 #
 
-#Release name
+# Release name
 PRODUCT_RELEASE_NAME := olive
 
+# Inherit from this configs
 $(call inherit-product, build/target/product/embedded.mk)
-
-$(call inherit-product, vendor/omni/config/gsm.mk)
-
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
-
-# Inherit from our custom product configuration
 $(call inherit-product, vendor/omni/config/common.mk)
+$(call inherit-product, build/target/product/core_64_bit.mk)
 
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
 
-PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/kernel:kernel \
-	$(LOCAL_PATH)/recovery/root/etc/recovery.fstab:recovery.fstab \
-	system/timezone/output_data/iana/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
+# Device identifier. This must come after all inclusions.
 
-PRODUCT_DEVICE	:= olive
-PRODUCT_NAME	:= omni_olive
-PRODUCT_BRAND	:= Xiaomi
-PRODUCT_MODEL	:= Redmi 8
+#PRODUCT_COPY_FILES += \
+#	$(LOCAL_PATH)/prebuilt/kernel:kernel \
+#	$(LOCAL_PATH)/recovery.fstab:recovery.fstab
+
+# Device identifier. This must come after all inclusions.
+PRODUCT_DEVICE := olive
+PRODUCT_NAME := omni_olive
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MODEL := Redmi 8
 PRODUCT_MANUFACTURER := Xiaomi
 
-BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := false
-
-PRODUCT_PROPERTY_OVERRIDES := ro.treble.enabled=true
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
+    ro.product.device \
+    ro.product.name \
+    ro.build.product
 
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.build.version.security_patch=2099-12-31 \
-	ro.vendor.build.security_patch=2099-12-31 
+	ro.secure=1 \
+	ro.adb.secure=0
