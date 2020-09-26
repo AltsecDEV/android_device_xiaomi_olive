@@ -1,4 +1,4 @@
-# Copyright (c) 2011-2012, The Linux Foundation. All rights reserved.
+# Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -79,7 +79,6 @@ on boot
     mkdir /dev/usb-ffs/adb 0770 shell system
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=1000,rmode=0770,fmode=0660
     write /sys/class/android_usb/android0/f_ffs/aliases adb
-    setprop sys.usb.mtp.device_type 2
     setprop vendor.usb.controller ${sys.usb.controller}
 
 on property:sys.usb.config=none
@@ -89,29 +88,6 @@ on property:sys.usb.config=none
     write /config/usb_gadget/g1/bDeviceClass 0
     write /config/usb_gadget/g1/bDeviceSubClass 0
     write /config/usb_gadget/g1/bDeviceProtocol 0
-    rm /config/usb_gadget/g1/configs/b.1/f1
-    rm /config/usb_gadget/g1/configs/b.1/f2
-    rm /config/usb_gadget/g1/configs/b.1/f3
-    rmdir /config/usb_gadget/g1/functions/rndis.gs4
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=adb
-    start adbd
-
-on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
-    write /config/usb_gadget/g1/idVendor 0x18d1
-    write /config/usb_gadget/g1/idProduct 0x4ee7
-    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
-    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
-    setprop sys.usb.state ${sys.usb.config}
-
-on property:sys.usb.config=mtp
-    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
-    write /config/usb_gadget/g1/idVendor 0x2717
-    write /config/usb_gadget/g1/idProduct 0xFF40
-    symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
-    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.config=mtp,adb
@@ -119,12 +95,30 @@ on property:sys.usb.config=mtp,adb
 
 on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
-    write /config/usb_gadget/g1/idVendor 0x2717
-    write /config/usb_gadget/g1/idProduct 0xFF48
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    write /config/usb_gadget/g1/idVendor 0x05C6
+    write /config/usb_gadget/g1/idProduct 0x9039
     symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
     setprop sys.usb.state ${sys.usb.config}
 
-on property:ro.boot.usbcontroller=*
-    setprop sys.usb.controller ${ro.boot.usbcontroller}
+on property:sys.usb.config=adb
+    start adbd
+
+on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
+    rm /config/usb_gadget/g1/configs/b.1/f1
+    rm /config/usb_gadget/g1/configs/b.1/f2
+    rm /config/usb_gadget/g1/configs/b.1/f3
+    rm /config/usb_gadget/g1/configs/b.1/f4
+    rm /config/usb_gadget/g1/configs/b.1/f5
+    write /config/usb_gadget/g1/idVendor 0x18d1
+    write /config/usb_gadget/g1/idProduct 0x4ee7
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    write /config/usb_gadget/g1/UDC ${sys.usb.controller}
+    setprop sys.usb.state ${sys.usb.config}
